@@ -63,8 +63,11 @@ class Planets(db.Model):
 class Favorite(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id") , nullable=False)
-    character_id = db.Column(db.Integer, db.ForeignKey("character.id") , nullable=False)
-    planets_id = db.Column(db.Integer, db.ForeignKey("planets.id") , nullable=False)
+    character_id = db.Column(db.Integer, db.ForeignKey("character.id") , nullable=True)
+    planets_id = db.Column(db.Integer, db.ForeignKey("planets.id") , nullable=True)
+    user=db.relationship("User",backref=db.backref("favorite"))
+    character=db.relationship("Character",backref=db.backref("favorite"))
+    planets=db.relationship("Planets",backref=db.backref("favorite"))
     def __repr__(self):
         return '<Favorite %r>' % self.id
 
